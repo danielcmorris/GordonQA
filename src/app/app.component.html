@@ -1,15 +1,57 @@
 <!-- Top Banner Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+ 
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column" *ngIf="!(auth.isAuthenticated$ | async)">
+      <header class="masthead mb-auto">
+        <div class="inner">
+         
+          <nav class="nav nav-masthead justify-content-center">
+            <a class="nav-link active" href="#">Home</a>
+            <a class="nav-link" href="#">Features</a>
+             <a  (click)="auth.loginWithRedirect()" class="nav-link btn btn-link">Login</a>
+          </nav>
+        </div>
+      </header>
+
+      <main role="main" class="inner cover">
+        <h1 class="cover-heading">Manage Your Testing</h1>
+        <p class="lead">Gordon QA is an OpenSource project designed to manage software tests, feature sets and test sets.</p>
+        <p class="lead">
+          <a  class="btn btn-lg btn-secondary"  (click)="auth.loginWithRedirect()">Login</a>
+        </p>
+      </main>
+
+      <footer class="mastfoot mt-auto">
+        <div class="inner">
+          
+        </div>
+      </footer>
+    </div>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary"  *ngIf="auth.isAuthenticated$ | async">
   <div class="container-fluid">
     <button class="btn btn-outline-light me-3" (click)="isSidebarCollapsed = !isSidebarCollapsed">
       <i class="bi bi-list"></i>
     </button>
-    <a class="navbar-brand" href="#">Daniel Morris</a>
+ 
+
+     <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
+     
+  
+     <a *ngIf="auth.user$ | async as user" class="navbar-brand" href="mailto:{{ user.email }}">{{ user.name }}</a>
+      
+    </ng-container>
+
+    <ng-template #loggedOut>
+      <button (click)="auth.loginWithRedirect()">Log in</button>
+    </ng-template>
+
+
+   
   </div>
 </nav>
 
 <!-- Layout: Sidebar + Main Content -->
-<div class="d-flex">
+<div class="d-flex"  *ngIf="auth.isAuthenticated$ | async; ">
   <!-- Sidebar -->
   <div
     class=" border-end"
@@ -35,6 +77,10 @@
       <li class="list-group-item">
         <a routerLink="/settings" routerLinkActive="active">Settings</a>
       </li>
+        <li  style="padding-left:5px;text-align: left;">
+        <a  (click)="logout()" class="btn btn-link">Logout</a>
+      </li>
+ 
       <!-- Add more links as needed -->
     </ul>
   </div>
