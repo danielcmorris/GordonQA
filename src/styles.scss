@@ -25,15 +25,17 @@
  */
 
 html,
-body {
-  height: 100%;
-  
-}
-
  
+  
 
 .cover-container {
-  max-width: 42em;
+   background-image: url("/logo.png"); /* Replace with your image path */
+  background-size: cover;
+  background-position: center; /* Optional: to center the image */
+  background-attachment: fixed; /* Optional: to fix the image in place */
+  height: 100vh; /* Optional: make the body cover the entire viewport height */
+  margin: 0; /* Optional: remove default margins */
+
 }
 
 
