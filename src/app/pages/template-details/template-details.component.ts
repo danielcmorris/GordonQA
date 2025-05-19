@@ -15,9 +15,9 @@ import { ITestItem } from '../../models/test-item.interface';
   styleUrl: './template-details.component.scss'
 })
 export class TemplateDetailsComponent {
-  testName:string = "Form Stability"
+  testName:string = "Warehouse Form - Add New"
 
-   featureName: string = "Fancy Feature";
+   featureName: string = "Login Form";
   
     tmpItem:ITestItem = {templateItemID:0,sortOrder:0,description:"",expectation:""}
 
@@ -41,8 +41,8 @@ export class TemplateDetailsComponent {
     /* forms */
     form = new FormGroup({
       featureId: new FormControl(0),
-      featureName: new FormControl('Fancy Feature'),
-      description: new FormControl('This is a super fancy feature we are building'),
+      featureName: new FormControl('Warehouse Form - Add New'),
+      description: new FormControl('Ensure that a new warehouse can be added, all the fields are saved and the new warehouse is displayed in the list'),
       code: new FormControl('FF'),
       fax: new FormControl(''),
       phone: new FormControl(''),

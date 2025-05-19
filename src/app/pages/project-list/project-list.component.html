@@ -1,1 +1,33 @@
-<p>project-list works!</p>
+<div class="row">
+    <div class="col-sm-9" style="padding-bottom: 10px;;">
+        <a name="top"></a>
+        <span class="breadcrumbs">
+ 
+            <a routerLink="/">home</a> &gt;
+           project list
+        </span>
+    </div>
+</div>
+<h1>Projects </h1>
+
+<div class="row">
+    <div class="col-sm-8"><input type="text" class="form-control" placeholder="Search for..." aria-label="Search" [(ngModel)]="quickFilter" (ngModelChange)="onQuickFilterChanged()" style="width: 300px; margin-bottom: 10px;"/>
+    </div>
+    <div class="col-sm-2" style="text-align: right;padding-right:30px">
+
+        <label for="showInactive">Show Inactive:&nbsp;</label>
+        <input type="checkbox" class="form-check-input" id="showInactive" 
+           [(ngModel)]="showInactive" 
+            (ngModelChange)="onShowInactiveChanged($event)" style="margin-bottom: 10px;"/>
+
+    </div>
+    <div class="col-sm-2">
+        <button type="button" class="btn btn-primary" (click)="onAddEmployee()">Add New</button>
+    </div>
+</div>
+ 
+<div class="grid-wrapper">
+    <ag-grid-angular style="height: 100%;" class="{{display.isDarkMode() ? 'ag-theme-quartz-dark  ag-grid' : 'ag-theme-quartz  ag-grid'}}"   [rowData]="rowData"
+        (gridReady)="onGridReady($event)" (rowClicked)="onrowClicked($event)" [gridOptions]="gridOptions">
+    </ag-grid-angular>
+</div>

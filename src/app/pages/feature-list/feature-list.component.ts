@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { SideBarDef } from 'ag-grid-community';
 import { DataLayerService } from '../../services/data-layer.service';
 import { DisplayService } from '../../common/services/display.service';
+import { firstValueFrom } from 'rxjs';
 
 
 var sideBar: SideBarDef = {
@@ -33,13 +34,13 @@ var sideBar: SideBarDef = {
 @Component({
   selector: 'app-feature-list',
   standalone: true,
-  imports: [RouterModule, AgGridAngular,FormsModule],
+  imports: [RouterModule, AgGridAngular, FormsModule],
   templateUrl: './feature-list.component.html',
   styleUrl: './feature-list.component.scss'
 })
 export class FeatureListComponent {
 
-  
+
   rowData: any[] = []
   gridOptions: any = {}
   gridApi: any = null;
@@ -48,19 +49,19 @@ export class FeatureListComponent {
 
   showInactive: boolean = false;
 
-sampleData=[
-  {featureId:1, featureName:"Test Feature 1", status:'Active',projectName:'My Big Project', templateCount:12, testCount:2}
-]
+  sampleData = [
+    { featureId: 1, featureName: "Test Feature 1", status: 'Active', projectName: 'My Big Project', templateCount: 12, testCount: 2 }
+  ]
 
 
-  constructor( dl: DataLayerService, private router: Router, public display:DisplayService) {
+  constructor(private dl: DataLayerService, private router: Router, public display: DisplayService) {
     let gridOpts = new FeatureListColumnDefinition();
     this.gridOptions = gridOpts.gridOptions;
     this.gridOptions.sideBar = sideBar;
-     
-      this.rowData = this.sampleData;
-     
-       
+
+    this.rowData = this.sampleData;
+
+
 
 
 
@@ -70,7 +71,7 @@ sampleData=[
 
 
 
-  
+
 
   onShowInactiveChanged($event: any) {
     console.log('show inactive', $event)
@@ -100,21 +101,29 @@ sampleData=[
   }
 
 
-  onGridReady($event: any) {
-    
+  async onGridReady($event: any) {
+
     this.gridApi = $event.api;
     this.onShowInactiveChanged(false);
     this.gridApi.sizeColumnsToFit();
+    console.log('start',this.rowData);
+    this.rowData=[];
+    this.loadData();
+    console.log('end',this.rowData); 
+  }
+  async loadData() {
+    this.rowData = await firstValueFrom(this.dl.getFeatures());
+    this.gridOptions.api.setRowData(this.rowData as any);
 
   }
-  onAddEmployee(){
+  onAddEmployee() {
     this.router.navigate(['/features', 'new']);
 
   }
   onrowClicked($event: any) {
     console.log($event.data)
-    console.log($event.data.featureId)
-    this.router.navigate(['/features', $event.data.featureId]);
+    console.log($event.data.featureID)
+    this.router.navigate(['/features', $event.data.featureID]);
 
   }
 

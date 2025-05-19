@@ -12,13 +12,14 @@ import { FeatureListComponent } from './pages/feature-list/feature-list.componen
 export const routes: Routes = [
    
     {path:"dashboard", component:DashboardComponent},
-    {path:"features/:id", component:FeatureComponent},
-    {path:"features/:id/templates/:templateId", component:TemplateDetailsComponent},
+    {path:"features/:featureId", component:FeatureComponent},
+    {path:"features/:featureId/templates/:templateId", component:TemplateDetailsComponent},
     {path:"features", component:FeatureListComponent},
     {path:"tests", component:TestListComponent},    
     {path:"tests:/id", component:TestDetailsComponent},
     {path:"projects", component:ProjectListComponent},
     {path:"projects/:id", component:ProjectComponent},
+    {path:"projects/:id/features/:featureId", component:FeatureComponent},
     {path:"templates", component:TemplateListComponent},
     {path:"templates/:id", component:TemplateDetailsComponent},
     {path:"settings", component:FeatureComponent},

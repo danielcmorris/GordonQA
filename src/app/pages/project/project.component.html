@@ -1,1 +1,120 @@
-<p>project works!</p>
+<div class="row">
+    <div class="col-sm-9" style="padding-bottom: 10px;;">
+        <a name="top"></a>
+        <span class="breadcrumbs">
+ 
+            <a routerLink="/">home</a> &gt;
+            <a routerLink="../">feature list</a> &gt;
+            {{projectName.toLocaleLowerCase()}}
+        </span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-10">
+        <h1>{{projectName}}</h1>
+    </div>
+    <div class="col-sm-2">
+
+    </div>
+</div>
+
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+
+<div class="card" data-bs-theme="">
+    <div class="card-header">
+
+
+        <!-- Three-dot dropdown using NgbDropdown -->
+        <div ngbDropdown class="d-inline-block" style="float: right; ">
+            <button class="btn  border-0 p-1" style="font-size: 20px;" ngbDropdownToggle>
+                &#x22EE; <!-- Unicode vertical ellipsis: ⋮ -->
+            </button>
+
+            <ul ngbDropdownMenu style="cursor: pointer">
+                @if(form.controls.status.value == 'Inactive'){
+                <li style="background-color: rgb(3, 41, 99);color:white;" ngbDropdownItem (click)="onSetActive()">
+                    Reset to Active</li>
+                }@else {
+                <li style="background-color: gray;color:white;" ngbDropdownItem (click)="onSetInactive()">Set to
+                    Inactive</li>
+                }
+
+                <li style="background-color: red;color:white;" ngbDropdownItem (click)="onDelete()">Delete
+                </li>
+            </ul>
+        </div>
+        <button style="float: right;margin-right:20px" type="button" class="btn btn-primary"
+            (click)="btnSave()">Save</button>
+
+        <h3 class="card-title">Details</h3>
+    </div>
+    <div class="card-body">
+
+     
+            <div class="row">
+                <div class="col-sm-3">
+                    <label for="name">Code</label>
+                    <input type="text" class="form-control" id="name" formControlName="code">
+                </div>
+                <div class="col-sm-9">
+                    <label for="address">Name</label>
+                    <input type="text" class="form-control" id="address" formControlName="projectName">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                     <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                        <textarea class="form-control" formControlName="description" rows="3"></textarea>
+                </div>
+            </div>
+    </div>
+</div>
+
+<br>
+
+
+<div class="card" data-bs-theme="">
+    <div class="card-header">
+
+
+       
+        <button style="float: right;margin-right:20px" type="button" class="btn btn-primary"
+            (click)="btnSave()">New Feature</button>
+
+        <h3 class="card-title">Project Features</h3>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <th>Feature ID</th>
+                <th>Name </th>
+                <th>Description</th>
+                <th>Tests</th>
+                
+                <th>Status</th>
+            </thead>
+            <tbody>
+                @for (item of features; track $index) {
+                    <tr style="cursor: pointer;" (click)="goto(item)">
+                        <td>{{item.featureID}}</td>
+                        <td>{{item.featureName}}</td>
+                        <td>{{item.description}}</td>
+                        <td>{{item.testCount}}</td>
+                        
+                        <td>{{item.status}}</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+      
+    </div>
+</div>
+
+
+
+
+
+</form>

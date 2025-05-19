@@ -76,7 +76,7 @@
 <br>
 
 
-<div class="card" data-bs-theme="">
+<div class="card" data-bs-theme="" style="display: none;">
     <div class="card-header">
 
 
@@ -84,27 +84,28 @@
         <button style="float: right;margin-right:20px" type="button" class="btn btn-primary"
             (click)="btnSave()">New Template</button>
 
-        <h3 class="card-title">Test Templates</h3>
+        <h3 class="card-title">Feature Templates</h3>
     </div>
     <div class="card-body">
         <table class="table table-striped">
             <thead>
-                <th>Template ID</th>
-                <th>Name </th>
+                <th>Select</th>
+                <th>&nbsp;Name </th>
                 <th>Description</th>
                 <th>Steps</th>
                 <th>Version</th>
-                <th>Status</th>
+                <th>&nbsp;</th>
             </thead>
             <tbody>
                 @for (item of templates; track $index) {
-                    <tr style="cursor: pointer;" (click)="goto(item)">
-                        <td>{{item.testTemplateID}}</td>
+                    <tr style="cursor: pointer;" >
+                        <td><input type=checkbox></td>
+                        
                         <td>{{item.templateName}}</td>
                         <td>{{item.description}}</td>
                         <td>{{item.steps}}</td>
                         <td>{{item.version}}</td>
-                        <td>{{item.status}}</td>
+                         <td><button class="btn btn-secondary btn-sm" (click)="goto(item)">Edit</button> </td>
                     </tr>
                 }
             </tbody>
@@ -129,22 +130,22 @@
     <div class="card-body">
         <table class="table table-striped">
             <thead>
-                <th>Template ID</th>
+                <th>Select&nbsp;</th>
                 <th>Name </th>
                 <th>Description</th>
                 <th>Steps</th>
-                <th>Version</th>
                 <th>Status</th>
+                <th>&nbsp;</th>
             </thead>
             <tbody>
-                @for (item of templates; track $index) {
+                @for (item of (tests$ | async); track $index) {
                     <tr>
-                        <td>{{item.testTemplateID}}</td>
-                        <td>{{item.templateName}}</td>
+                          <td><input type=checkbox></td>
+                        <td>{{item.testName}}</td>
                         <td>{{item.description}}</td>
-                        <td>{{item.steps}}</td>
-                        <td>{{item.version}}</td>
+                        <td>{{item.stepCount}}</td>
                         <td>{{item.status}}</td>
+                        <td><button class="btn btn-secondary btn-sm" (click)="goto(item)">Edit</button> </td>
                     </tr>
                 }
             </tbody>
